@@ -3,5 +3,6 @@
 /workspace.xml/
 *.html/
 *.CSS/
-*.js
+*.js/
+.idea
 
