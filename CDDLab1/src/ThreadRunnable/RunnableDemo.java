@@ -5,7 +5,8 @@ package ThreadRunnable;/*
 /**
  *
  * @author Daniel Dinelli
- * @since   2021-10-04
+ * @Date   2021-10-04
+ * @Licence GNU GPL
  */
 class RunnableDemo implements Runnable {
     private Thread t;

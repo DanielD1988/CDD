@@ -9,7 +9,8 @@ import java.util.concurrent.*;
     /**
      *
      * @author Daniel Dinelli
-     * @since   2021-10-04
+     * @Date   2021-10-04
+     * @Licence GNU GPL
      */
     class ThreadDemo extends Thread {
         //fields and methods

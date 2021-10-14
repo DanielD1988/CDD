@@ -6,7 +6,8 @@ package ThreadDemo;
 /**
  *
  * @author Daniel Dinelli
- * @since   2021-10-04
+ * @Date   2021-10-04
+ * @Licence GNU GPL
  *
  * Create two threads and run them.
  */
