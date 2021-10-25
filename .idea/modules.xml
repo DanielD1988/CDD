@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/CDD.iml" filepath="$PROJECT_DIR$/.idea/CDD.iml" />
       <module fileurl="file://$PROJECT_DIR$/CDDLab2/CDDLab2.iml" filepath="$PROJECT_DIR$/CDDLab2/CDDLab2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CDDLab3/CDDLab3.iml" filepath="$PROJECT_DIR$/CDDLab3/CDDLab3.iml" />
       <module fileurl="file://$PROJECT_DIR$/CDDLab1/CDDLabs.iml" filepath="$PROJECT_DIR$/CDDLab1/CDDLabs.iml" />
     </modules>
   </component>
