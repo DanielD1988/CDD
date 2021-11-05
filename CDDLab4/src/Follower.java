@@ -1,50 +1,32 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Semaphore;
 
 public class Follower implements Runnable{
-    private static Semaphore turnstile = new Semaphore(0);
-    private static Semaphore waitForLeader = new Semaphore(0);
-    static Semaphore mutexLock = new Semaphore(1);
     private String name = "";
-    public static BlockingQueue<String> followerQueue;
-    static int numOfThreads = 0;
+    FifoQueue queue = new FifoQueue();
+    Semaphore mutex = new Semaphore(1);
+    Semaphore rendezvous = new Semaphore(0);
 
-    public Follower(String name,int totalThreads){
+    public Follower(String name,Semaphore threadSema){
         this.name = name;
-        followerQueue = new <String> ArrayBlockingQueue(totalThreads / 2);
-        numOfThreads = totalThreads / 2;
+        queue.threadWait(threadSema);
     }
 
     @Override
     public void run() {
         try{
-            //add thread names to queue
-            mutexLock.acquire();
-            followerQueue.add(name);
-            mutexLock.release();
-            System.out.println(followerQueue.size());
-            //allow only one thread out at a time
 
-            turnstile.acquire();
-            /*
-            //block until all threads are in queue
-            turnstile.acquire();
-            name = followerQueue.remove();
+            mutex.wait();
+            if(Leader.leaders > 0){
+                Leader.leaders--;
+                //Leader.leaders.signal();
+            }
+            else{
+                Leader.followers++;
+                mutex.release();
+                //followerQueue.wait();
+            }
             System.out.println(name);
-
-            //wait for both threads to reach same point
-            Leader.waitForFollower.release();
-            waitForLeader.acquire();
-
-            System.out.print(name);
-
-            //allow another thread to go
-            turnstile.release();*/
+            rendezvous.release();
 
         }
         catch(Exception e){

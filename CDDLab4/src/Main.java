@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,14 +25,14 @@ public class Main {
     {
 
         // creates five tasks pass max number of threads
-        Runnable r1 = new Leader("a",MAX_T);
-        Runnable r2 = new Leader("b",MAX_T);
-        Runnable r3 = new Leader("c",MAX_T);
-        Runnable r4 = new Leader("d",MAX_T);
-        Runnable r5 = new Follower("1",MAX_T);
-        Runnable r6 = new Follower("2",MAX_T);
-        Runnable r7 = new Follower("3",MAX_T);
-        Runnable r8 = new Follower("4",MAX_T);
+        Runnable r1 = new Leader("a",new Semaphore(0));
+        Runnable r2 = new Leader("b",new Semaphore(0));
+        Runnable r3 = new Leader("c",new Semaphore(0));
+        Runnable r4 = new Leader("d",new Semaphore(0));
+        Runnable r5 = new Follower("1",new Semaphore(0));
+        Runnable r6 = new Follower("2",new Semaphore(0));
+        Runnable r7 = new Follower("3",new Semaphore(0));
+        Runnable r8 = new Follower("4",new Semaphore(0));
 
         // creates a thread pool with MAX_T no. of
         // threads as the fixed pool size(Step 2)
