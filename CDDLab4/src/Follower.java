@@ -1,31 +1,40 @@
 import java.util.concurrent.Semaphore;
 
+
 public class Follower implements Runnable{
     private String name = "";
-    FifoQueue queue = new FifoQueue();
+    public static FifoQueue followerQueue = new FifoQueue();
     Semaphore mutex = new Semaphore(1);
-    Semaphore rendezvous = new Semaphore(0);
+    static Semaphore rendezvous = new Semaphore(0);
+    public static int followers = 0;
+    Semaphore mySema;
+    public static Semaphore waitForFollower = new Semaphore(0);
+    static Semaphore printMutex = new Semaphore(1);
 
     public Follower(String name,Semaphore threadSema){
         this.name = name;
-        queue.threadWait(threadSema);
+        mySema = threadSema;
     }
 
     @Override
     public void run() {
         try{
-
-            mutex.wait();
+            mutex.acquire();
             if(Leader.leaders > 0){
                 Leader.leaders--;
-                //Leader.leaders.signal();
+                Leader.leaderQueue.threadSignal();
             }
             else{
-                Leader.followers++;
+                followers++;
                 mutex.release();
-                //followerQueue.wait();
+                followerQueue.threadWait(mySema);
             }
-            System.out.println(name);
+            printMutex.acquire();
+            System.out.print(name);
+            Leader.waitForLeader.release();
+            waitForFollower.acquire();
+            printMutex.release();
+
             rendezvous.release();
 
         }

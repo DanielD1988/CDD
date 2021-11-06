@@ -3,19 +3,18 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Semaphore;
 
 public class FifoQueue {
-    Semaphore mutex;
-    public static BlockingQueue<Semaphore> queue;;
+    Semaphore mutex = new Semaphore(1);;
+    public BlockingQueue<Semaphore> queue;
 
     public FifoQueue(){
         queue = new <Semaphore>ArrayBlockingQueue(4);
-        mutex = new Semaphore(1);
     }
-    public void threadWait(Semaphore mySem){
+    public void threadWait(Semaphore mySema){
         try{
             mutex.acquire();
-            queue.add(mySem);
+            queue.add(mySema);
             mutex.release();
-            mySem.acquire();
+            mySema.acquire();
         }
         catch(Exception e){
 
@@ -25,9 +24,9 @@ public class FifoQueue {
     public void threadSignal(){
         try{
             mutex.acquire();
-            Semaphore sem = queue.remove();
+            Semaphore sema = queue.remove();
             mutex.release();
-            sem.release();
+            sema.release();
         }
         catch(Exception e){
 
