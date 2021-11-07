@@ -3,8 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
@@ -13,7 +11,7 @@ import java.util.logging.Logger;
 
 /**
  *@author Daniel Dinelli
- *@Date 25/10/2021
+ *@Date 07/11/2021
  *@Licence GNU GPL
  */
 public class Main {
@@ -24,7 +22,7 @@ public class Main {
     public static void main(String[] args)
     {
 
-        // creates five tasks pass max number of threads
+        // creates eight tasks pass max a semaphore
         Runnable r1 = new Leader("a",new Semaphore(0));
         Runnable r2 = new Leader("b",new Semaphore(0));
         Runnable r3 = new Leader("c",new Semaphore(0));
