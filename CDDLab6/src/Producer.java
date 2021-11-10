@@ -18,7 +18,7 @@ public class Producer implements Runnable{
     private Semaphore mutex = new Semaphore(1);
     public static Semaphore unlockQueue = new Semaphore(0);
     public static boolean producerFinFlag = false;
-
+    private int producedNumber = 0;
     public Producer(){
 
     }
@@ -32,8 +32,9 @@ public class Producer implements Runnable{
         try{
             while(true){
                 mutex.acquire();
-                event = new Event();
-                if(buffer.spacesFree() < 20){
+
+                if(buffer.spacesFree() < 19){
+                    event = new Event(producedNumber++);
                     unlockQueue.release();
                 }
                 else{

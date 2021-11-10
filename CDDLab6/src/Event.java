@@ -1,4 +1,5 @@
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.Semaphore;
+
 /**
  *@author Daniel Dinelli
  *@Date 10/11/2021
@@ -8,24 +9,34 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * This class sets a variable for thread
  * threadNumber will be different for each thread
+ * lockVar limits the access to the variable to be inc
  */
 public class Event {
-    private static int threadNumber = 0;
+    private int producerNum = 0;
+    private static Semaphore lockVar = new Semaphore(1);
 
     /**
-     * This constructor inc the threadNumber each time the its called
+     * This constructor takes a integer to store for each time something is produced
+     * @param producerNum
      */
-    public Event(){
-            System.out.println("Produced " + threadNumber);
-            threadNumber++;
+    public Event(int producerNum){
+            try{
+                lockVar.acquire();
+                this.producerNum = producerNum;
+                System.out.println("Produced " + producerNum);
+                lockVar.release();
+            }
+            catch(Exception e){
+
+            }
     }
 
     /**
-     * This method returns the the threadNumber value but dec before it returns
+     * This method returns the the producerNum value for that each event created
      * @return
      */
     public int getProducedNumber(){
 
-        return threadNumber--;
+        return producerNum;
     }
 }
