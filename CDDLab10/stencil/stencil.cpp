@@ -44,7 +44,14 @@
 //
 
 // Code:
-
+**
+ *
+ * @author Daniel Dinelli
+ * @Date   2022-13-01
+ * @Licence GNU GPL
+ *
+ * This program uses the quick sort on a vector of 2000 elements
+ */
 
 
 #include <iostream>
@@ -61,7 +68,12 @@ using namespace std ;
 //array dimension
 const int DIM=1000;
 const int SIZE=4;
-
+/**
+  @class stencil
+  @fn calcNeighbours
+  @brief This function takes in a two float vectors in and out the value at k of the in 
+  vector is set to the element at the i value of the out vector
+*/
 int calcNeighbours(vector<float> const  &in, int index, vector<float>& out){
   int amount=out.size();
   for(int i=0;i<out.size();++i){//put neighbours of in[i] into out vector
@@ -75,20 +87,29 @@ int calcNeighbours(vector<float> const  &in, int index, vector<float>& out){
   }
   return 1;
 }
-
+/**
+  @class stencil
+  @fn stencil 
+  @brief This function uses a parallel for loop to pass in the in and out vectors to calcNeighbours function
+*/
 void stencil(vector<float> const &in, vector<float> &out,
 	     function <float(vector<float>) > f,int size){
 #pragma openmp parallel for
   for (int i=0; i < in.size(); ++i){
     vector<float> neighbours(size);
     calcNeighbours(in,i,neighbours);
-    out[i]=f(neighbours);
+    out[i]=f(neighbours);//not sure where f is coming from
   }
 }
 
 
 
-
+/**
+  @class stencil
+  @fn getNewValue
+  @brief This function totals all the elements of the currentValues vector 
+  and returns the total divided by the vector size
+*/
 float getNewValue(vector<float> currentValues){
   float average=0.0;
   float total=0.0;
@@ -98,6 +119,11 @@ float getNewValue(vector<float> currentValues){
   return total/currentValues.size();
 }
 
+/**
+  @class stencil
+  @fn main
+  @brief This function is the main point of entry and sets up two float vectors
+*/
 int main(void){
   vector<float> first(DIM), second(DIM);
   //initilise vectors

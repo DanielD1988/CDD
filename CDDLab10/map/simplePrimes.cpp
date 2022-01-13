@@ -1,3 +1,11 @@
+/**
+ *
+ * @author Daniel Dinelli
+ * @Date   2022-13-01
+ * @Licence GNU GPL
+ *
+ * Show a print statement outside the parallel block and one that is inside
+ */
 # include <cstdlib>
 # include <iostream>
 # include <iomanip>

@@ -1,49 +1,11 @@
-// quicksort.cpp ---
-//
-// Filename: quicksort.cpp
-// Description:
-// Author: Joseph Kehoe
-// Maintainer:
-// Created: Sat Feb  9 16:43:33 2019 (+0000)
-// Version:
-// Package-Requires: ()
-// Last-Updated: Tue Feb 12 16:48:22 2019 (+0000)
-//           By: Joseph
-//     Update #: 103
-// URL:
-// Doc URL:
-// Keywords:
-// Compatibility:
-//
-//
-
-// Commentary:
-//
-//
-//
-//
-
-// Change Log:
-//
-//
-//
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at
-// your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
-//
-//
-
-// Code:
+**
+ *
+ * @author Daniel Dinelli
+ * @Date   2022-13-01
+ * @Licence GNU GPL
+ *
+ * This program uses the quick sort on a vector of 2000 elements
+ */
 
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
@@ -58,6 +20,12 @@ using namespace std ;
 
 const int LENGTH=2000;
 
+/**
+  @class quicksort
+  @fn partition
+  @brief This function takes swaps the postion of array elements based on a pivot point of the vector this
+  method also returns the new pivot point 
+*/
 //template <typename T>
 int partition (vector<int>& myArray , int low , int high ){
   int pivot=myArray[high];
@@ -76,7 +44,11 @@ int partition (vector<int>& myArray , int low , int high ){
   }
   return i-1;
 }
-
+/**
+  @class quicksort
+  @fn quicksort
+  @brief This function is recursively called until the low is equal to or greater than the high
+*/
 //template<typename T>
 int quicksort(vector<int>& myArray , int low , int high ){
   if (low<high){
@@ -93,7 +65,11 @@ int quicksort(vector<int>& myArray , int low , int high ){
 }//quicksort
 
 
-
+/**
+  @class quicksort
+  @fn main
+  @brief This function is the main point of entry and sets up the vector to be used by the quick sort function
+*/
 int main(void){
   srand (time(NULL));
   vector<int> data(LENGTH);
